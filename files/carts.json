@@ -1,0 +1,29 @@
+[
+    {
+        "id": "lsf763njbs99p",
+        "items": [
+            {
+                "productId": 12,
+                "quantity": 1,
+                "title": "Control Xbox serie X",
+                "description": "Marca Microsoft, Carbon black",
+                "code": "889842716894",
+                "price": "900",
+                "status": "true",
+                "stock": "10",
+                "category": "Accesorios de consola",
+                "thumbnails": "",
+                "id": 12
+            }
+        ]
+    },
+    {
+        "id": "lsf7kmxboldsd",
+        "items": [
+            {
+                "productId": 18,
+                "quantity": 2
+            }
+        ]
+    }
+]
