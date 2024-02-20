@@ -19,17 +19,21 @@ app.get('/ping', (req, res) => {
     res.send({ status: "ok" })
 });
 
-app.get('/', (req, res) => {
-    // Aquí puedes pasar los productos a la vista
+app.get('/home', (req, res) => {
     res.render('home', { products });
 });
 
+app.get('/realtimeproducts', (req, res) => {
+    res.render('realTimeProducts', { products });
+});
 
-app.use(express.static(__dirname + '/public/'));
+
 
 app.engine('handlebars', handlebars.engine());
 app.set('view engine', 'handlebars');
 app.set('views', __dirname + '/views');
+
+app.use(express.static(__dirname + '/public/'));
 
 app.use('/api/products', productsRoutes);
 app.use('/api/carts', cartsRoutes);
@@ -43,5 +47,19 @@ const httpServer = app.listen(PORT, () => {
 const socketServer = new Server(httpServer);
 
 socketServer.on('connection', socket => {
-    console.log ('nuevo cliente conectado');
-})
+    console.log('Nuevo cliente conectado');
+
+    socket.emit('products', products);
+
+    socket.on('productAdded', (product) => {
+        products.push(product);
+        socketServer.emit('products', products);
+    });
+
+    socket.on('productDeleted', (productId) => {
+        products = products.filter((product) => product.id !== productId);
+        socketServer.emit('products', products); 
+    });
+});
+
+

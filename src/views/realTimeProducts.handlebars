@@ -1,0 +1,35 @@
+<!-- RealTimeProducts.handlebars -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de productos en tiempo real</title>
+</head>
+<body>
+    <h1>Lista de Productos en Tiempo Real</h1>
+    <ul id="productList">
+        {{#each products}}
+            <li>{{this.title}}</li>
+        {{/each}}
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io(); // Inicia una conexión WebSocket
+
+        
+        socket.on('products', (products) => {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = ''; // Borra la lista actual de productos
+
+            // Recorre los productos y agrega cada uno a la lista
+            products.forEach((product) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = product.title;
+                productList.appendChild(listItem);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -39,7 +39,7 @@ router.get('/', (req, res) => {
  });
 
  // Ruta para mostrar el producto por medio de su ID 
-router.get('/:cid', (req, res) => {
+router.get('/:pid', (req, res) => {
     let { pid } = req.params
     console.log(pid);
 
@@ -68,7 +68,7 @@ router.post('/', (req, res) => {
 });
 
 // Ruta para actualizar un producto por medio de su ID
-router.put('/:cid', (req, res) => {
+router.put('/:pid', (req, res) => {
     let productId = parseInt(req.params.pid)
     let productUpdate = req.body
 
@@ -85,7 +85,7 @@ router.put('/:cid', (req, res) => {
 });
 
 // Ruta para eliminar un producto por medio de su ID
-router.delete('/:cid', (req, res) => {
+router.delete('/:pid', (req, res) => {
     let ProductId = parseInt(req.params.pid);
 
     const productSize = products.length;

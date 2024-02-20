@@ -1,8 +1,21 @@
-    <div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+</head>
+<body>
     <h1>Lista de Productos</h1>
     <ul>
         {{#each products}}
-            <li>{{this.title}} - {{this.description}} - {{this.price}}</li>
+        <li>
+            <strong>Nombre:</strong> {{this.title}} <br>
+            <strong>Descripción:</strong> {{this.description}} <br>
+            <strong>Precio:</strong> {{this.price}} <br>
+            <strong>Stock:</strong> {{this.stock}} <br>
+        </li>
         {{/each}}
     </ul>
-    </div>
+</body>
+</html>

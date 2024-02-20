@@ -31,5 +31,16 @@
         "category": "Consolas",
         "thumbnails": "",
         "id": 18
+    },
+    {
+        "title": "Kingdom hearts 2",
+        "description": "Videojuego: Square-Enix",
+        "code": "48993028495534",
+        "price": "400",
+        "status": "true",
+        "stock": "2",
+        "category": "Software",
+        "thumbnails": "",
+        "id": 5
     }
 ]
