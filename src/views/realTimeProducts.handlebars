@@ -1,10 +1,9 @@
-<!-- RealTimeProducts.handlebars -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de productos en tiempo real</title>
+    <title>Real Time Products</title>
 </head>
 <body>
     <h1>Lista de Productos en Tiempo Real</h1>
@@ -14,22 +13,52 @@
         {{/each}}
     </ul>
 
+    <h2>Agregar Nuevo Producto</h2>
+    <form id="productForm">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br>
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description" required></textarea><br>
+        <label for="code">Código:</label>
+        <input type="text" id="code" name="code" required><br>
+        <label for="price">Precio:</label>
+        <input type="number" id="price" name="price" min="0" required><br>
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" min="0" required><br>
+        <label for="category">Categoría:</label>
+        <input type="text" id="category" name="category" required><br>
+        <button type="submit">Agregar Producto</button>
+    </form>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
-        const socket = io(); // Inicia una conexión WebSocket
+    const socket = io(); 
+
+   
+    socket.on('products', (products) => {
+        const productList = document.getElementById('productList');
+        productList.innerHTML = ''; 
+
+        products.forEach((product) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = product.title;
+            productList.appendChild(listItem);
+        });
+    });
+
+
+    document.getElementById('productForm').addEventListener('submit', (event) => {
+        event.preventDefault();
 
         
-        socket.on('products', (products) => {
-            const productList = document.getElementById('productList');
-            productList.innerHTML = ''; // Borra la lista actual de productos
-
-            // Recorre los productos y agrega cada uno a la lista
-            products.forEach((product) => {
-                const listItem = document.createElement('li');
-                listItem.textContent = product.title;
-                productList.appendChild(listItem);
-            });
+        const formData = new FormData(event.target);
+        const newProduct = {};
+        formData.forEach((value, key) => {
+            newProduct[key] = value;
         });
-    </script>
+
+        socket.emit('productAdded', newProduct);
+    });
+</script>
 </body>
 </html>
